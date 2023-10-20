@@ -1,0 +1,2 @@
+name,enabled,n_phases,n_conds,base_freq,x_hl,x_ht,x_lt,pct_load_loss,ppm_anti_float
+t1,true,3,4,60,0.06,0.35,0.3,1,1E-6

@@ -1,0 +1,3 @@
+name,enabled,n_phases,n_conds,base_freq,terminal1,terminal2,length,units,line_code,geometry
+line1,true,3,3,60,sourcebus,n2,2000,ft,,4wire
+line2,true,3,3,60,n3,n4,2500,ft,,4wire

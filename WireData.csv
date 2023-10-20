@@ -1,0 +1,3 @@
+name,r,r_dc,r_units,gmr,gmr_units,radius,radius_units,normal_amps,emergency_amps
+conductor,0.306,0.3,mi,0.0244,ft,0.3605,in,-1,-1
+neutral,0.592,0.580392156862745,mi,0.00814,ft,0.2815,in,-1,-1
