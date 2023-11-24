@@ -1,0 +1,8 @@
+{
+    "$schema": "https://cktcsv.github.io/schema/options.json",
+    "frequency": 60.0,
+    "voltage_bases": [
+        12.47,
+        4.16
+    ]
+}
