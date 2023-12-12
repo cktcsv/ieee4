@@ -131,8 +131,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./ieee4-grd_dy_bal.ckt
-          asset_name: ieee4-grd_dy_bal.ckt
+          asset_path: ./ieee4-grd_yd_bal.ckt
+          asset_name: ieee4-grd_yd_bal.ckt
           asset_content_type: application/zip
 
       - name: Upload YY-Bal artifact
