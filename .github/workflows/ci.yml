@@ -21,12 +21,12 @@ jobs:
           ref: yd_bal
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Archive
-        run: zip -Z deflate ieee4-yd_bal.ckt *.csv *.json README LICENSE
+        run: zip -Z deflate ieee4-yd_bal.ckv *.csv *.json README LICENSE
       - name: Upload archive
         uses: actions/upload-artifact@v2
         with:
           name: ckt-yd-bal
-          path: ieee4-yd_bal.ckt
+          path: ieee4-yd_bal.ckv
   dy-bal:
     name: Archive DY-Bal
     runs-on: ubuntu-latest
@@ -39,12 +39,12 @@ jobs:
           ref: dy_bal
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Archive
-        run: zip -Z deflate ieee4-dy_bal.ckt *.csv *.json README LICENSE
+        run: zip -Z deflate ieee4-dy_bal.ckv *.csv *.json README LICENSE
       - name: Upload archive
         uses: actions/upload-artifact@v2
         with:
           name: ckt-dy-bal
-          path: ieee4-dy_bal.ckt
+          path: ieee4-dy_bal.ckv
   grd-yd-bal:
     name: Archive Grd-YD-Bal
     runs-on: ubuntu-latest
@@ -57,12 +57,12 @@ jobs:
           ref: grd_yd_bal
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Archive
-        run: zip -Z deflate ieee4-grd_yd_bal.ckt *.csv *.json README LICENSE
+        run: zip -Z deflate ieee4-grd_yd_bal.ckv *.csv *.json README LICENSE
       - name: Upload archive
         uses: actions/upload-artifact@v2
         with:
           name: ckt-grd-yd-bal
-          path: ieee4-grd_yd_bal.ckt
+          path: ieee4-grd_yd_bal.ckv
   yy-bal:
     name: Archive YY-Bal
     runs-on: ubuntu-latest
@@ -75,12 +75,12 @@ jobs:
           ref: yy_bal
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Archive
-        run: zip -Z deflate ieee4-yy_bal.ckt *.csv *.json README LICENSE
+        run: zip -Z deflate ieee4-yy_bal.ckv *.csv *.json README LICENSE
       - name: Upload archive
         uses: actions/upload-artifact@v2
         with:
           name: ckt-yy-bal
-          path: ieee4-yy_bal.ckt
+          path: ieee4-yy_bal.ckv
 
   release:
     name: Release
@@ -95,6 +95,12 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: ckt-dy-bal
+      - uses: actions/download-artifact@v2
+        with:
+          name: ckt-grd-yd-bal
+      - uses: actions/download-artifact@v2
+        with:
+          name: ckt-yy-bal
 
       - name: Release
         uses: actions/create-release@v1
@@ -111,8 +117,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./ieee4-yd_bal.ckt
-          asset_name: ieee4-yd_bal.ckt
+          asset_path: ./ieee4-yd_bal.ckv
+          asset_name: ieee4-yd_bal.ckv
           asset_content_type: application/zip
 
       - name: Upload DY-Bal artifact
@@ -121,18 +127,18 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./ieee4-dy_bal.ckt
-          asset_name: ieee4-dy_bal.ckt
+          asset_path: ./ieee4-dy_bal.ckv
+          asset_name: ieee4-dy_bal.ckv
           asset_content_type: application/zip
 
-      - name: Upload Grd-DY-Bal artifact
+      - name: Upload Grd-YD-Bal artifact
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./ieee4-grd_yd_bal.ckt
-          asset_name: ieee4-grd_yd_bal.ckt
+          asset_path: ./ieee4-grd_yd_bal.ckv
+          asset_name: ieee4-grd_yd_bal.ckv
           asset_content_type: application/zip
 
       - name: Upload YY-Bal artifact
@@ -141,6 +147,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./ieee4-yy_bal.ckt
-          asset_name: ieee4-yy_bal.ckt
+          asset_path: ./ieee4-yy_bal.ckv
+          asset_name: ieee4-yy_bal.ckv
           asset_content_type: application/zip
