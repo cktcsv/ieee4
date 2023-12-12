@@ -45,13 +45,49 @@ jobs:
         with:
           name: ckt-dy-bal
           path: ieee4-dy_bal.ckt
+  grd-yd-bal:
+    name: Archive Grd-YD-Bal
+    runs-on: ubuntu-latest
+    env:
+      REPO_NAME: ${{ github.event.repository.name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: grd_yd_bal
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Archive
+        run: zip -Z deflate ieee4-grd_yd_bal.ckt *.csv *.json README LICENSE
+      - name: Upload archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: ckt-grd-yd-bal
+          path: ieee4-grd_yd_bal.ckt
+  yy-bal:
+    name: Archive YY-Bal
+    runs-on: ubuntu-latest
+    env:
+      REPO_NAME: ${{ github.event.repository.name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: yy_bal
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Archive
+        run: zip -Z deflate ieee4-yy_bal.ckt *.csv *.json README LICENSE
+      - name: Upload archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: ckt-yy-bal
+          path: ieee4-yy_bal.ckt
 
   release:
     name: Release
     runs-on: ubuntu-latest
     if: "startsWith(github.ref, 'refs/tags/')"
     permissions: write-all
-    needs: [ yd-bal, dy-bal ]
+    needs: [ yd-bal, dy-bal, grd-yd-bal, yy-bal ]
     steps:
       - uses: actions/download-artifact@v2
         with:
@@ -76,7 +112,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./ieee4-yd_bal.ckt
-          asset_name: ieee4-yd_bal
+          asset_name: ieee4-yd_bal.ckt
           asset_content_type: application/zip
 
       - name: Upload DY-Bal artifact
@@ -86,5 +122,25 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./ieee4-dy_bal.ckt
-          asset_name: ieee4-dy_bal
+          asset_name: ieee4-dy_bal.ckt
+          asset_content_type: application/zip
+
+      - name: Upload Grd-DY-Bal artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./ieee4-grd_dy_bal.ckt
+          asset_name: ieee4-grd_dy_bal.ckt
+          asset_content_type: application/zip
+
+      - name: Upload YY-Bal artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./ieee4-yy_bal.ckt
+          asset_name: ieee4-yy_bal.ckt
           asset_content_type: application/zip
